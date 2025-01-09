@@ -1,48 +1,4 @@
-name: Commit Date and Time in IST
-
-on:
-  schedule:
-    - cron: '* * * * *'  # Runs every minute
-
-  push:
-    branches:
-      - dev
-      
-permissions:
-  contents: write
-
-jobs:
-  commit-logs:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-
-      - name: Add current date and time to logs.txt (India Time Zone)
-        run: |
-          # Check if logs.txt exists, create it if not
-          if [ ! -f logs.txt ]; then
-            TZ="Asia/Kolkata" date '+Date and Time (IST): %Y-%m-%d %H:%M:%S' >> logs.txt
-          else
-            TZ="Asia/Kolkata" date '+Date and Time (IST): %Y-%m-%d %H:%M:%S' >> logs.txt
-          fi
-
-      - name: Commit changes
-        run: |
-          git config --local user.email "rohit.prajapat@appicsoftwares.in"
-          git config --local user.name "RohitPrajapat08"
-          git add logs.txt
-          git commit -m "Updated logs.txt with current date and time in IST" || echo "No changes to commit"
-
-      - name: Push changes
-        env:
-          GITHUB_TOKEN: ${{ secrets.API_TOKEN }}  # Use the default GitHub token for authentication
-        run: |
-          git push origin main  # Replace 'main' with your branch name
-
-
-# name: Commit Date and Time
+# name: Commit Date and Time in IST
 
 # on:
 #   schedule:
@@ -50,7 +6,7 @@ jobs:
 
 #   push:
 #     branches:
-#       - main
+#       - dev
       
 # permissions:
 #   contents: write
@@ -63,13 +19,13 @@ jobs:
 #       - name: Checkout repository
 #         uses: actions/checkout@v2
 
-#       - name: Add current date and time to logs.txt
+#       - name: Add current date and time to logs.txt (India Time Zone)
 #         run: |
 #           # Check if logs.txt exists, create it if not
 #           if [ ! -f logs.txt ]; then
-#             echo "Date and Time: $(date)" >> logs.txt
+#             TZ="Asia/Kolkata" date '+Date and Time (IST): %Y-%m-%d %H:%M:%S' >> logs.txt
 #           else
-#             echo "Date and Time: $(date)" >> logs.txt
+#             TZ="Asia/Kolkata" date '+Date and Time (IST): %Y-%m-%d %H:%M:%S' >> logs.txt
 #           fi
 
 #       - name: Commit changes
@@ -77,10 +33,54 @@ jobs:
 #           git config --local user.email "rohit.prajapat@appicsoftwares.in"
 #           git config --local user.name "RohitPrajapat08"
 #           git add logs.txt
-#           git commit -m "Updated logs.txt with current date and time" || echo "No changes to commit"
+#           git commit -m "Updated logs.txt with current date and time in IST" || echo "No changes to commit"
 
 #       - name: Push changes
 #         env:
 #           GITHUB_TOKEN: ${{ secrets.API_TOKEN }}  # Use the default GitHub token for authentication
 #         run: |
 #           git push origin main  # Replace 'main' with your branch name
+
+
+# # name: Commit Date and Time
+
+# # on:
+# #   schedule:
+# #     - cron: '* * * * *'  # Runs every minute
+
+# #   push:
+# #     branches:
+# #       - main
+      
+# # permissions:
+# #   contents: write
+
+# # jobs:
+# #   commit-logs:
+# #     runs-on: ubuntu-latest
+
+# #     steps:
+# #       - name: Checkout repository
+# #         uses: actions/checkout@v2
+
+# #       - name: Add current date and time to logs.txt
+# #         run: |
+# #           # Check if logs.txt exists, create it if not
+# #           if [ ! -f logs.txt ]; then
+# #             echo "Date and Time: $(date)" >> logs.txt
+# #           else
+# #             echo "Date and Time: $(date)" >> logs.txt
+# #           fi
+
+# #       - name: Commit changes
+# #         run: |
+# #           git config --local user.email "rohit.prajapat@appicsoftwares.in"
+# #           git config --local user.name "RohitPrajapat08"
+# #           git add logs.txt
+# #           git commit -m "Updated logs.txt with current date and time" || echo "No changes to commit"
+
+# #       - name: Push changes
+# #         env:
+# #           GITHUB_TOKEN: ${{ secrets.API_TOKEN }}  # Use the default GitHub token for authentication
+# #         run: |
+# #           git push origin main  # Replace 'main' with your branch name
